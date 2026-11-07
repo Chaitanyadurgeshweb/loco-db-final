@@ -30,6 +30,10 @@ export type SubmitResult =
   | { ok: true; message: string }
   | { ok: false; message: string };
 
+type LoadError = {
+  error: string;
+};
+
 async function load(fd: FormData) {
   const admin = await getAdmin();
 
@@ -46,11 +50,15 @@ async function load(fd: FormData) {
   }
 
   if (!/\.(xlsx|xls)$/i.test(f.name)) {
-    return { error: "Only .xlsx or .xls files are accepted." } as const;
+    return {
+      error: "Only .xlsx or .xls files are accepted.",
+    } as const;
   }
 
   if (f.size > MAX_BYTES) {
-    return { error: "The file is larger than 4 MB." } as const;
+    return {
+      error: "The file is larger than 4 MB.",
+    } as const;
   }
 
   const a = await analyse(admin.supabase, await f.arrayBuffer());
@@ -62,21 +70,43 @@ async function load(fd: FormData) {
   } as const;
 }
 
+type LoadResult = Awaited<ReturnType<typeof load>>;
+
+function getLoadError(r: LoadResult): string | null {
+  if ("error" in r && typeof r.error === "string") {
+    return r.error;
+  }
+
+  return null;
+}
+
 /** Step 1: Read and validate the file. No database writes. */
 export async function analyseUpload(
   fd: FormData
 ): Promise<AnalyseResult> {
   const r = await load(fd);
 
+  const loadError = getLoadError(r);
+
+  if (loadError !== null) {
+    return {
+      ok: false,
+      message: loadError,
+    };
+  }
+
   if ("error" in r) {
     return {
       ok: false,
-      message: r.error ?? "Unable to load the uploaded file.",
+      message: "Unable to load the uploaded file.",
     };
   }
 
   if (!r.a.ok) {
-    return { ok: false, message: r.a.message };
+    return {
+      ok: false,
+      message: r.a.message,
+    };
   }
 
   const { summary, items, issues, ignored } = r.a;
@@ -122,15 +152,27 @@ export async function submitUpload(
 
   const r = await load(fd);
 
+  const loadError = getLoadError(r);
+
+  if (loadError !== null) {
+    return {
+      ok: false,
+      message: loadError,
+    };
+  }
+
   if ("error" in r) {
     return {
       ok: false,
-      message: r.error ?? "Unable to load the uploaded file.",
+      message: "Unable to load the uploaded file.",
     };
   }
 
   if (!r.a.ok) {
-    return { ok: false, message: r.a.message };
+    return {
+      ok: false,
+      message: r.a.message,
+    };
   }
 
   if (r.a.items.length === 0) {
@@ -153,13 +195,15 @@ export async function submitUpload(
     }
   );
 
-  return res.ok
-    ? {
-        ok: true,
-        message: `Submitted successfully. Reference ${reqId(res.id)}. ${r.a.items.length.toLocaleString()} locomotive record(s) included.`,
-      }
-    : {
-        ok: false,
-        message: res.message,
-      };
+  if (!res.ok) {
+    return {
+      ok: false,
+      message: res.message,
+    };
+  }
+
+  return {
+    ok: true,
+    message: `Submitted successfully. Reference ${reqId(res.id)}. ${r.a.items.length.toLocaleString()} locomotive record(s) included.`,
+  };
 }
