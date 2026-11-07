@@ -5,14 +5,13 @@ export default function Contact({
 }: {
   topic?: string;
 }) {
-  if (!CONTACT_EMAIL) {
-    return null;
-  }
-
   return (
     <p>
-      For {topic}, email{"Chaitume0@gmail.com"}
-      <a href={`mailto:${CONTACT_EMAIL}`}>
+      For {topic}, contact us at{" "}
+      <a
+        href={`mailto:${CONTACT_EMAIL}`}
+        className="text-blue-600 underline"
+      >
         {CONTACT_EMAIL}
       </a>.
     </p>
