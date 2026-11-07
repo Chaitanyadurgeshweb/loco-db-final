@@ -1,0 +1,10 @@
+{
+  "rows_read": 16179,
+  "locomotives": 16174,
+  "zones": 16,
+  "sheds": 79,
+  "classes": 28,
+  "manufacturers": 5,
+  "issues": 131,
+  "ambiguous_sheds": {}
+}

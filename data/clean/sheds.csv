@@ -1,0 +1,80 @@
+code,name,location,maps_query,zone_code,slug
+BNDL,Bondamunda Electric Loco Shed,Bondamunda,Bondamunda Electric Loco Shed,SER,bndl
+KYNE,Kalyan Electric Loco Shed,Kalyan,Kalyan Electric Loco Shed,CR,kyne
+EDDX,Erode Diesel Loco Shed,Erode,Erode Diesel Loco Shed,SR,eddx
+AMVD,Lucknow Diesel Loco Shed,Lucknow (Alambagh),Lucknow Diesel Loco Shed,NR,amvd
+IZNE,Izzatnagar Diesel Loco Shed,Izzatnagar,Izzatnagar Diesel Loco Shed,NER,izne
+SPJD,Samastipur Diesel Loco Shed,Samastipur,Samastipur Diesel Loco Shed,ECR,spjd
+JHSE,Jhansi Electric Loco Shed,Jhansi,Jhansi Electric Loco Shed,NCR,jhse
+VTAD,Vatva Diesel Loco Shed,Vatva (Ahmedabad),Vatva Diesel Loco Shed,WR,vtad
+TKDD,Tughlakabad Diesel Loco Shed,Tughlakabad (Delhi),Tughlakabad Diesel Loco Shed,NR,tkdd
+BLEE,Valsad Electric Loco Shed,Valsad,Valsad Electric Loco Shed,WR,blee
+BZAE,Vijayawada Electric Loco Shed,Vijayawada,Vijayawada Electric Loco Shed,SCR,bzae
+BSLL,Bhusawal Electric Loco Shed,Bhusawal,Bhusawal Electric Loco Shed,CR,bsll
+HWHD,Howrah Diesel Loco Shed,Howrah,Howrah Diesel Loco Shed,ER,hwhd
+RTMD,Ratlam Diesel Loco Shed,Ratlam,Ratlam Diesel Loco Shed,WR,rtmd
+GTLE,Guntakal Electric Loco Shed,Guntakal,Guntakal Electric Loco Shed,SCR,gtle
+HWHE,Howrah Electric Loco Shed,Howrah,Howrah Electric Loco Shed,ER,hwhe
+AJJE,Arakkonam Electric Loco Shed,Arakkonam,Arakkonam Electric Loco Shed,SR,ajje
+SRCE,Santragachi Electric Loco Shed,Santragachi,Santragachi Electric Loco Shed,SER,srce
+GKPL,Gorakhpur Electric Loco Shed,Gorakhpur,Gorakhpur Electric Loco Shed,NER,gkpl
+DDUE,Pt. Deen Dayal Upadhyaya Electric Loco Shed,Mughalsarai (DDU),Pt. Deen Dayal Upadhyaya Electric Loco Shed,ECR,ddue
+GDDE,Gonda Electric Loco Shed,Gonda,Gonda Electric Loco Shed,NER,gdde
+BWNX,Barddhaman Diesel Loco Shed,Barddhaman,Barddhaman Diesel Loco Shed,ER,bwnx
+JMPD,Jamalpur Diesel Loco Shed,Jamalpur,Jamalpur Diesel Loco Shed,ER,jmpd
+ETD,Itarsi Diesel Loco Shed,Itarsi,Itarsi Diesel Loco Shed,WCR,etd
+WATE,Visakhapatnam Electric Loco Shed,Visakhapatnam,Visakhapatnam Electric Loco Shed,SCR,wate
+NKJD,New Katni Jn Diesel Loco Shed,New Katni Jn.,New Katni Jn Diesel Loco Shed,WCR,nkjd
+ERSX,Ernakulam Diesel Loco Shed,Ernakulam,Ernakulam Diesel Loco Shed,SR,ersx
+GZBE,Ghaziabad Electric Loco Shed,Ghaziabad,Ghaziabad Electric Loco Shed,NR,gzbe
+RPDX,Raipur Diesel Loco Shed,Raipur,Raipur Diesel Loco Shed,SECR,rpdx
+ANGE,Angul Electric Loco Shed,Angul,Angul Electric Loco Shed,ECoR,ange
+DDUX,Pt. Deen Dayal Upadhyaya Diesel Loco Shed,Mughalsarai (DDU),Pt. Deen Dayal Upadhyaya Diesel Loco Shed,ECR,ddux
+EDE,Erode Electric Loco Shed,Erode,Erode Electric Loco Shed,SR,ede
+IPTE,Ispat Nagar Electric Loco Shed,Ispat Nagar (Bokaro),Ispat Nagar Electric Loco Shed,SER,ipte
+KGPE,Kharagpur Electric Loco Shed,Kharagpur,Kharagpur Electric Loco Shed,SER,kgpe
+KZJD,Kazipet Diesel Loco Shed,Kazipet,Kazipet Diesel Loco Shed,SCR,kzjd
+KJGE,Khanalampura Electric Loco Shed,Khanalampura (Saharanpur),Khanalampura Electric Loco Shed,NR,kjge
+LGDE,Lallaguda Electric Loco Shed,Lallaguda (Secunderabad),Lallaguda Electric Loco Shed,SCR,lgde
+BRCE,Vadodara Electric Loco Shed,Vadodara,Vadodara Electric Loco Shed,WR,brce
+RPME,Royapuram Electric Loco Shed,Royapuram (Chennai),Royapuram Electric Loco Shed,SR,rpme
+KJMD,Krishnarajapuram Diesel Loco Shed,Krishnarajapuram (Bengaluru),Krishnarajapuram Diesel Loco Shed,SWR,kjmd
+LDHE,Ludhiana Electric Loco Shed,Ludhiana,Ludhiana Electric Loco Shed,NR,ldhe
+TKDE,Tughlakabad Electric Loco Shed,Tughlakabad (Delhi),Tughlakabad Electric Loco Shed,WCR,tkde
+SDAD,Sealdah Diesel Loco Shed,Beliaghata/Sealdah,Sealdah Diesel Loco Shed,ER,sdad
+PADX,Pune Electric Loco Shed,Pune,Pune Electric Loco Shed,CR,padx
+AQE,Ajni Electric Loco Shed,Ajni (Nagpur),Ajni Electric Loco Shed,CR,aqe
+ETE,Itarsi Electric Loco Shed,Itarsi,Itarsi Electric Loco Shed,WCR,ete
+BIAE,Bhilai Electric Loco Shed,Bhilai,Bhilai Electric Loco Shed,SECR,biae
+TATE,Tatanagar Electric Loco Shed,Tatanagar (Jamshedpur),Tatanagar Electric Loco Shed,SER,tate
+SBTD,Sabarmati Diesel Loco Shed,Sabarmati (Ahmedabad),Sabarmati Diesel Loco Shed,WR,sbtd
+GMOE,NSC Bose Jn. Gomoh Electric Loco Shed,Gomoh,NSC Bose Jn. Gomoh Electric Loco Shed,ECR,gmoe
+BGKD,Bhagat Ki Kothi Diesel Loco Shed,Jodhpur,Bhagat Ki Kothi Diesel Loco Shed,NWR,bgkd
+CNBE,Kanpur Electric Loco Shed,Kanpur,Kanpur Electric Loco Shed,NCR,cnbe
+BJUE,Barauni Electric Loco Shed,Barauni,Barauni Electric Loco Shed,ECR,bjue
+PTRX,Patratu Electric Loco Shed,Patratu,Patratu Electric Loco Shed,ECR,ptrx
+KZJL,Kazipet Electric Loco Shed,Kazipet,Kazipet Electric Loco Shed,SCR,kzjl
+BSPE,Bilaspur Electric Loco Shed,Bilaspur,Bilaspur Electric Loco Shed,SECR,bspe
+ASNL,Asansol Electric Loco Shed,Asansol,Asansol Electric Loco Shed,ER,asnl
+NKJE,New Katni Jn Electric Loco Shed,New Katni Jn.,New Katni Jn Electric Loco Shed,WCR,nkje
+BKSE,Bokaro Steel City Electric Loco Shed,Bokaro Steel City,Bokaro Steel City Electric Loco Shed,SER,bkse
+ROUE,Rourkela Electric Loco Shed,Rourkela,Rourkela Electric Loco Shed,SER,roue
+GYD,Gooty Diesel Loco Shed,Gooty,Gooty Diesel Loco Shed,SCR,gyd
+WATD,Visakhapatnam Diesel Loco Shed,Visakhapatnam,Visakhapatnam Diesel Loco Shed,SCR,watd
+MLDD,Malda Town Electric Loco Shed,Malda Town,Malda Town Electric Loco Shed,NFR,mldd
+SGUD,Siliguri Diesel Loco Shed,Siliguri,Siliguri Diesel Loco Shed,NFR,sgud
+UBLD,Hubballi Electric Loco Shed,Hubballi,Hubballi Electric Loco Shed,SWR,ubld
+MELS,Saharanpur Electric Loco Shed (WAG-12),Saharanpur,Saharanpur Electric Loco Shed (WAG-12),NR,mels
+SYHE,Saiyedpur Bhitri Electric Loco Shed,Saiyedpur Bhitri (Ghazipur),Saiyedpur Bhitri Electric Loco Shed,NER,syhe
+NEDA,Nagpur Electric Loco Shed,Ajni (Nagpur),Nagpur Electric Loco Shed,CR,neda
+BZAD,Vijayawada Diesel Loco Shed,Vijayawada,Vijayawada Diesel Loco Shed,SCR,bzad
+MLYD,Moula Ali Diesel Loco Shed,Moula Ali (Secunderabad),Moula Ali Diesel Loco Shed,SCR,mlyd
+DNDE,Daund Electric Loco Shed,Daund,Daund Electric Loco Shed,CR,dnde
+NGCD,New Guwahati Diesel Loco Shed,New Guwahati (Guwahati),New Guwahati Diesel Loco Shed,NFR,ngcd
+SLSD,Beliaghata/Sealdah Electric Loco Shed,Beliaghata/Sealdah,Beliaghata/Sealdah Electric Loco Shed,ER,slsd
+AJJL,"Electric Loco Shed, Arakkonam Jn.",Arakkonam,"Electric Loco Shed, Arakkonam Jn.",SR,ajjl
+NKD,Not identified as a loco-shed code; NKD is Nekonda station code,Nekonda,Not identified as a loco-shed code; NKD is Nekonda station code,WCR,nkd
+EDX,Erode Diesel Loco Shed (code variant/unverified),Erode,Erode Diesel Loco Shed (code variant/unverified),SR,edx
+JHSD,Jhansi Diesel Loco Shed,Jhansi,Jhansi Diesel Loco Shed,NCR,jhsd
+IZND,Izzatnagar Diesel Loco Shed,Izzatnagar,Izzatnagar Diesel Loco Shed,NER,iznd
+GDDX,Gonda Diesel Loco Shed,Gonda,Gonda Diesel Loco Shed,NER,gddx
