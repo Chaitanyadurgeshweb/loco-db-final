@@ -9,4 +9,4 @@ export const OFFICIAL_URL =
 export const DISCLAIMER_BEFORE_URL =
   "Loco Portal is an independent, unofficial project. It is not officially affiliated with, endorsed by, sponsored by, or operated by Indian Railways or any Indian Railways zone, division, production unit, or government authority. The official website of Indian Railways is ";
 
-export const CONTACT_EMAIL = "YOUR_ACTUAL_EMAIL@gmail.com";
+export const CONTACT_EMAIL = "Chaitume0@gmail.com";
