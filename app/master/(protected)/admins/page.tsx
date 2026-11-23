@@ -1,136 +1,205 @@
 
-import Link from "next/link";
 import { requireMaster } from "@/lib/master-auth";
-import { signOutMaster } from "@/app/master/actions";
+import { createServiceSupabase } from "@/lib/supabase/service";
+import { createAdminAccount } from "@/app/master/actions";
 
 export const dynamic = "force-dynamic";
 
-export default async function MasterProtectedLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+type Props = {
+  searchParams: {
+    success?: string;
+    error?: string;
+  };
+};
+
+const errors: Record<string, string> = {
+  invalid_username: "Username must be 3–32 characters.",
+  invalid_email: "Enter a valid email address.",
+  invalid_password: "Password must contain 12–128 characters.",
+  username_exists: "This username is already registered.",
+  database: "Unable to check the database.",
+  auth_creation: "Account creation failed. The email may already exist.",
+  role_assignment: "Unable to assign the Administrator role.",
+};
+
+export default async function AdminManagementPage({
+  searchParams,
+}: Props) {
   await requireMaster();
 
+  const supabase = createServiceSupabase();
+
+  const { data: admins, error } = await supabase
+    .from("admin_users")
+    .select("user_id, username, created_at")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Administrator listing error:", error);
+  }
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="space-y-6">
 
-      {/* Existing Public Website Header */}
-      <header className="bg-[#14213d] text-white">
-        <div className="mx-auto max-w-[1100px] px-4">
+      {/* Page heading */}
+      <div>
+        <h1 className="text-2xl font-bold text-navy">
+          Manage Administrators
+        </h1>
 
-          <div className="flex flex-wrap items-center justify-between gap-4 py-4">
-
-            <Link href="/" className="text-white no-underline">
-              <div className="text-lg font-bold">
-                LOCO PORTAL
-              </div>
-
-              <p className="text-xs text-blue-100">
-                Independent Indian Railways locomotive reference
-              </p>
-            </Link>
-
-            <form action="/" className="flex gap-2">
-              <input
-                type="search"
-                name="q"
-                placeholder="Loco no., class or shed"
-                className="w-64 rounded px-3 py-2 text-sm text-gray-900 outline-none"
-              />
-
-              <button
-                type="submit"
-                className="rounded bg-[#963e2e] px-5 py-2 text-sm font-semibold text-white"
-              >
-                Search
-              </button>
-            </form>
-
-          </div>
-
-        </div>
-
-        <div className="border-t border-white/20 bg-[#1b2c4d]">
-          <nav className="mx-auto flex max-w-[1100px] flex-wrap gap-6 px-4 py-3 text-sm">
-            <Link href="/" className="text-white no-underline">Home</Link>
-            <Link href="/locomotives" className="text-white no-underline">Locomotives</Link>
-            <Link href="/classes" className="text-white no-underline">Classes</Link>
-            <Link href="/sheds" className="text-white no-underline">Sheds</Link>
-            <Link href="/zones" className="text-white no-underline">Zones</Link>
-            <Link href="/manufacturers" className="text-white no-underline">Manufacturers</Link>
-            <Link href="/data-status" className="text-white no-underline">Data status</Link>
-            <Link href="/about" className="text-white no-underline">About</Link>
-          </nav>
-        </div>
-      </header>
-
-      {/* Master Admin Navigation */}
-      <div className="mx-auto max-w-[1100px] px-4 pt-8">
-
-        <div className="flex flex-wrap items-center justify-between gap-4 border-l-4 border-[#963e2e] bg-[#111827] px-4 py-2">
-
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-
-            <span className="text-sm font-bold text-white">
-              Master Administration
-            </span>
-
-            <Link
-              href="/master"
-              className="text-sm text-white no-underline hover:text-blue-300"
-            >
-              Approval dashboard
-            </Link>
-
-            <Link
-              href="/master/admins"
-              className="text-sm font-semibold text-white no-underline hover:text-blue-300"
-            >
-              Manage Administrators
-            </Link>
-
-            <Link
-              href="/"
-              className="text-sm text-white no-underline hover:text-blue-300"
-            >
-              View public site
-            </Link>
-
-          </div>
-
-          <div className="flex items-center gap-3">
-
-            <span className="hidden text-xs text-gray-200 sm:block">
-              Master Admin
-            </span>
-
-            <form action={signOutMaster}>
-              <button
-                type="submit"
-                className="rounded border border-gray-400 px-4 py-1.5 text-xs font-semibold text-white hover:bg-white/10"
-              >
-                Sign out
-              </button>
-            </form>
-
-          </div>
-
-        </div>
-
+        <p className="text-sm text-gray-600 mt-2">
+          Create and view Administrator accounts for Loco Portal.
+        </p>
       </div>
 
-      {/* Page Content */}
-      <main className="mx-auto max-w-[1100px] px-4 py-6">
-        {children}
-      </main>
+      {/* Success message */}
+      {searchParams.success === "created" && (
+        <div className="notice notice-ok">
+          Administrator account created successfully.
+        </div>
+      )}
 
-      {/* Footer */}
-      <footer className="mx-auto mt-10 max-w-[1100px] border-t border-gray-200 px-4 py-5 text-center text-xs text-gray-500">
-        LOCO PORTAL | Master Administration
-      </footer>
+      {/* Error message */}
+      {searchParams.error && (
+        <div className="notice notice-error" role="alert">
+          {errors[searchParams.error] ??
+            "Something went wrong. Please try again."}
+        </div>
+      )}
+
+      {/* Create administrator */}
+      <section className="border rounded-lg bg-white p-5">
+        <h2 className="text-lg font-bold mb-5">
+          Create New Administrator
+        </h2>
+
+        <form action={createAdminAccount} className="space-y-4">
+
+          <div>
+            <label htmlFor="username" className="label">
+              Username
+            </label>
+
+            <input
+              id="username"
+              name="username"
+              type="text"
+              className="input w-full"
+              placeholder="Enter username"
+              minLength={3}
+              maxLength={32}
+              pattern="[A-Za-z0-9._-]+"
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="email" className="label">
+              Email Address
+            </label>
+
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className="input w-full"
+              placeholder="administrator@example.com"
+              maxLength={254}
+              required
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="label">
+              Temporary Password
+            </label>
+
+            <input
+              id="password"
+              name="password"
+              type="password"
+              className="input w-full"
+              placeholder="Minimum 12 characters"
+              minLength={12}
+              maxLength={128}
+              autoComplete="new-password"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-primary"
+          >
+            Create Administrator
+          </button>
+
+        </form>
+      </section>
+
+      {/* Existing administrators */}
+      <section>
+        <div className="flex flex-wrap justify-between items-center mb-4">
+          <h2 className="text-lg font-bold">
+            Registered Administrators
+          </h2>
+
+          <span className="text-sm text-gray-600">
+            Total: {admins?.length ?? 0}
+          </span>
+        </div>
+
+        {error ? (
+          <div className="notice notice-error">
+            Unable to load administrators.
+          </div>
+        ) : (
+          <div className="table-wrap">
+            <table className="data-table w-full">
+
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>User ID</th>
+                  <th>Created At</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {admins?.map((admin) => (
+                  <tr key={admin.user_id}>
+                    <td className="font-semibold">
+                      {admin.username || "—"}
+                    </td>
+
+                    <td className="break-all text-xs">
+                      {admin.user_id}
+                    </td>
+
+                    <td>
+                      {new Date(
+                        admin.created_at
+                      ).toLocaleDateString("en-IN", {
+                        timeZone: "Asia/Kolkata",
+                      })}
+                    </td>
+                  </tr>
+                ))}
+
+                {(!admins || admins.length === 0) && (
+                  <tr>
+                    <td colSpan={3} className="text-center py-6">
+                      No administrators registered yet.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+
+            </table>
+          </div>
+        )}
+      </section>
 
     </div>
   );
 }
-DD
