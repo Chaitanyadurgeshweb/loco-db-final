@@ -1,6 +1,5 @@
 
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { requireMaster } from "@/lib/master-auth";
 import { signOutMaster } from "@/app/master/actions";
 
@@ -15,79 +14,65 @@ export default async function MasterProtectedLayout({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Master Admin Header */}
+
       <header className="bg-[#10243A] text-white shadow-md">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4">
 
-          <div className="flex flex-wrap items-center justify-between gap-4 py-4">
-
-            {/* Logo and Title */}
-            <Link
-              href="/master"
-              className="text-white no-underline"
-            >
-              <div className="text-xl font-bold tracking-wide">
+          <div className="flex items-center justify-between py-4">
+            <Link href="/master" className="text-white no-underline">
+              <h1 className="text-xl font-bold">
                 LOCO PORTAL
-              </div>
-
-              <div className="text-xs text-gray-300 mt-1">
+              </h1>
+              <p className="text-xs text-gray-300">
                 Master Administration Panel
-              </div>
+              </p>
             </Link>
 
-            {/* Logout */}
             <form action={signOutMaster}>
               <button
                 type="submit"
-                className="rounded-md border border-white/30 px-4 py-2 text-sm font-medium text-white hover:bg-white/10 transition"
+                className="border border-white/30 rounded-md px-4 py-2 hover:bg-white/10"
               >
                 Sign Out
               </button>
             </form>
-
           </div>
 
-          {/* Navigation */}
-          <nav
-            aria-label="Master administration"
-            className="flex flex-wrap gap-x-6 gap-y-3 border-t border-white/20 py-3"
-          >
+          <nav className="flex flex-wrap gap-6 border-t border-white/20 py-3">
+
             <Link
               href="/master"
-              className="text-sm font-medium text-white hover:text-blue-300 transition no-underline"
+              className="text-white hover:text-blue-300 no-underline"
             >
               Approval Dashboard
             </Link>
 
             <Link
               href="/master/admins"
-              className="text-sm font-medium text-white hover:text-blue-300 transition no-underline"
+              className="text-white hover:text-blue-300 no-underline"
             >
               Manage Administrators
             </Link>
 
             <Link
               href="/"
-              className="text-sm font-medium text-white hover:text-blue-300 transition no-underline"
+              className="text-white hover:text-blue-300 no-underline"
             >
               View Public Site
             </Link>
-          </nav>
 
+          </nav>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <main className="max-w-7xl mx-auto px-4 py-6">
         {children}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white mt-10">
-        <div className="mx-auto max-w-7xl px-4 py-4 text-center text-xs text-gray-500">
-          Loco Portal | Master Administration
-        </div>
+      <footer className="mt-10 border-t bg-white py-4 text-center text-xs text-gray-500">
+        Loco Portal | Master Administration
       </footer>
+
     </div>
   );
 }
