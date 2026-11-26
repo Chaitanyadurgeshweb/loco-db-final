@@ -13,7 +13,7 @@ const links: [string, string][] = [
 
 export default function SiteFooter() {
   return (
-    <footer className="site-footer bg-navy text-gray-200 mt-12 text-sm">
+    <footer className="site-footer bg-navy text-slate-300 mt-12 text-sm">
       <div className="container-page py-6 grid gap-6 md:grid-cols-3">
 
         <div>
