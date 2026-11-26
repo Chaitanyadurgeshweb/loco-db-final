@@ -17,7 +17,7 @@ export default function BulkUpload() {
     {msg && <p role={msg.kind === "error" ? "alert" : "status"} className={`notice ${msg.kind === "error" ? "notice-error" : "notice-ok"} max-w-2xl`}>{msg.text}</p>}
     {data && <>
       <section><h2 className="!mt-0">2. Review the results <span className="text-sm font-normal text-gray-600">({data.fileName})</span></h2>
-        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-3">{Object.entries(data.summary).map(([k, v]) => <div key={k} className="stat-card"><dd className="text-2xl font-bold text-navy tabular-nums">{(v as number).toLocaleString()}</dd><dt className="text-xs text-gray-700">{k}</dt></div>)}</dl></section>
+        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-3">{Object.entries(data.summary).map(([k, v]) => <div key={k} className="stat-card"><dd className="text-2xl font-bold text-slate-100 tabular-nums">{(v as number).toLocaleString()}</dd><dt className="text-xs text-gray-700">{k}</dt></div>)}</dl></section>
       {data.items.length > 0 && <section><h3>Changes to be submitted ({data.counts.items.toLocaleString()})</h3>
         <div className="table-wrap max-h-96 overflow-y-auto"><table className="data-table"><thead><tr><th scope="col" className="num">Locomotive</th><th scope="col">Action</th><th scope="col">Values</th></tr></thead><tbody>
           {data.items.map(i => <tr key={i.number}><td className="num">{i.number}</td><td>{i.action === "add" ? "New record" : "Fill missing"}</td>
