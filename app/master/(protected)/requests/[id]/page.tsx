@@ -31,7 +31,7 @@ export default async function RequestPreview({ params, searchParams }: { params:
     <div className="notice mb-2"><b>Reason / comments from the admin:</b> <span className="whitespace-pre-wrap break-words">{r.reason}</span></div>
     {r.decline_reason && <div className="notice notice-error mb-2"><b>Rejection reason:</b> <span className="whitespace-pre-wrap break-words">{r.decline_reason}</span></div>}
     {status === "pending" && <ReviewPanel id={r.id} initial={initial} blocked={blocked} />}
-    {summary && <><h2>Upload summary</h2><dl className="grid grid-cols-2 sm:grid-cols-4 gap-3">{Object.entries(summary).map(([k, v]) => <div key={k} className="stat-card"><dd className="text-2xl font-bold text-navy tabular-nums">{v}</dd><dt className="text-xs text-gray-700">{k}</dt></div>)}</dl></>}
+    {summary && <><h2>Upload summary</h2><dl className="grid grid-cols-2 sm:grid-cols-4 gap-3">{Object.entries(summary).map(([k, v]) => <div key={k} className="stat-card"><dd className="text-2xl font-bold text-slate-100 tabular-nums">{v}</dd><dt className="text-xs text-gray-700">{k}</dt></div>)}</dl></>}
     <h2>{type === "bulk_upload" ? `Proposed changes (${items.length.toLocaleString()} locomotives)` : "Current record and proposed changes"}</h2>
     {type !== "bulk_upload" ? shown.map(it => { const cur = live.get(it.number), keys = new Set(it.action === "add" ? Object.keys(it.after) : changedKeys(it.before ?? {}, it.after));
       return <div key={it.number} className="mb-6"><h3 className="!mt-0">Locomotive {it.number} {it.action === "add" ? <span className="badge badge-source_listed">New</span> : null}</h3>
@@ -46,6 +46,6 @@ export default async function RequestPreview({ params, searchParams }: { params:
       <nav className="flex gap-5 my-3 text-sm" aria-label="Pagination"><span>Page {page} of {pages}</span>
         {page > 1 && <Link href={`?page=${page - 1}`}>← Previous</Link>}{page < pages && <Link href={`?page=${page + 1}`}>Next →</Link>}</nav></>}
     <h2>Audit history</h2>
-    <ol className="space-y-2 text-sm">{(audit ?? []).map((a: any) => <li key={a.id} className="border-l-4 border-navy pl-3"><b className="capitalize">{a.event}</b> by {a.actor_email} · {stamp(a.at)}
+    <ol className="space-y-2 text-sm">{(audit ?? []).map((a: any) => <li key={a.id} className="border-l-4 border-accent pl-3"><b className="capitalize">{a.event}</b> by {a.actor_email} · {stamp(a.at)}
       {a.detail?.reason && <> — {a.detail.reason}</>}{typeof a.detail?.applied === "number" && <> — {a.detail.applied} record(s) applied</>}</li>)}</ol></>;
 }
