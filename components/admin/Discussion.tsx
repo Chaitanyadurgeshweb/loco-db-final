@@ -12,5 +12,5 @@ export default async function Discussion({ sb, number }: { sb: SupabaseClient; n
           <p className="text-xs text-gray-600 mt-1">{x.author_email} · {stamp(x.created_at)}</p></li>)}</ul>}</div>
     <div><h2 className="!mt-0">Activity history</h2>
       {a.error ? <p role="alert" className="notice notice-error">Could not load the activity history.</p> : (a.data ?? []).length === 0 ? <p className="text-sm text-gray-600">No submissions yet for this locomotive.</p> :
-        <ol className="space-y-3">{(a.data ?? []).map((x: any) => <li key={x.id} className="border-l-4 border-navy pl-3 text-sm"><p className="break-words">{x.summary}</p><p className="text-xs text-gray-600 mt-1">{stamp(x.created_at)}</p></li>)}</ol>}</div></section>;
+        <ol className="space-y-3">{(a.data ?? []).map((x: any) => <li key={x.id} className="border-l-4 border-accent pl-3 text-sm"><p className="break-words">{x.summary}</p><p className="text-xs text-gray-600 mt-1">{stamp(x.created_at)}</p></li>)}</ol>}</div></section>;
 }
