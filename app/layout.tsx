@@ -1,9 +1,15 @@
 
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 
-import SiteHeader from "@/components/SiteHeader";
+import AppShell from "@/components/AppShell";
 import SiteFooter from "@/components/SiteFooter";
+
+const sans = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+
+export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: "#011523" };
 
 export const metadata: Metadata = {
   title: {
@@ -25,17 +31,9 @@ export default function Root({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${sans.variable} ${mono.variable}`}>
       <body>
-        <SiteHeader />
-        <main
-          id="main"
-          tabIndex={-1}
-          className="container-page flex-1 w-full py-8 focus:outline-none"
-        >
-          {children}
-        </main>
-        <SiteFooter />
+        <AppShell footer={<SiteFooter />}>{children}</AppShell>
       </body>
     </html>
   );
