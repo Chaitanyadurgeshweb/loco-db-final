@@ -38,7 +38,7 @@ export default function Legal() {
         aria-label="On this page"
         className="border border-gray-200 bg-gray-50 p-4 mb-6 max-w-3xl"
       >
-        <p className="font-semibold text-navy mb-2">Contents</p>
+        <p className="font-semibold text-slate-100 mb-2">Contents</p>
 
         <ol className="list-decimal pl-5 grid sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
           {toc.map(([id, t]) => (
