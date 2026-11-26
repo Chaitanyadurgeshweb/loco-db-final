@@ -9,7 +9,7 @@ export default async function Dashboard() {
   const rows = (recent.data ?? []) as any[];
   return <><PageHeader title="Administration" crumbs={[{ label: "Admin" }]}><p>Counts below come live from the database. Changes you submit are reviewed before they appear on the live records.</p></PageHeader>
     <dl className="grid grid-cols-2 md:grid-cols-6 border border-gray-200 divide-x divide-gray-200 text-center mb-6">
-      {stats.map(([l, v]) => <div key={l} className="py-3 px-2"><dd className="text-2xl font-bold text-navy tabular-nums">{v === null ? "—" : v.toLocaleString()}</dd><dt className="text-xs text-gray-700">{l}</dt></div>)}</dl>
+      {stats.map(([l, v]) => <div key={l} className="py-3 px-2"><dd className="text-2xl font-bold text-slate-100 tabular-nums">{v === null ? "—" : v.toLocaleString()}</dd><dt className="text-xs text-gray-700">{l}</dt></div>)}</dl>
     <p className="flex flex-wrap gap-3"><Link href="/admin/locos/new" className="btn btn-primary">Add locomotive</Link><Link href="/admin/bulk" className="btn">Bulk data upload</Link><Link href="/admin/locos" className="btn">Manage locomotives</Link></p>
     <h2>Recently updated records</h2>
     {recent.error ? <p role="alert" className="notice notice-error">Could not load recent records.</p> : rows.length === 0 ? <p className="notice">No records yet.</p> :
