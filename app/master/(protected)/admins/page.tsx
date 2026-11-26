@@ -43,7 +43,7 @@ export default async function AdminManagementPage({
 
       {/* Page heading */}
       <div>
-        <h1 className="text-2xl font-bold text-navy">
+        <h1 className="text-2xl font-bold text-slate-100">
           Manage Administrators
         </h1>
 
@@ -68,7 +68,7 @@ export default async function AdminManagementPage({
       )}
 
       {/* Create administrator */}
-      <section className="border rounded-lg bg-white p-5">
+      <section className="border rounded-lg bg-surface p-5">
         <h2 className="text-lg font-bold mb-5">
           Create New Administrator
         </h2>
