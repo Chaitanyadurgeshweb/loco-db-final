@@ -15,9 +15,9 @@ export default function AuthForm({ action, variant, next }: { action: (s: FormSt
       {fe.email && <p id="email-err" className="field-error">{fe.email}</p>}</div>
     <div><label htmlFor="password" className="label">Password</label>
       <div className="relative"><input id="password" name="password" type={show ? "text" : "password"} autoComplete="current-password" required className="input !py-2.5 pr-16" aria-invalid={!!fe.password} aria-describedby={fe.password ? "pw-err" : undefined} />
-        <button type="button" onClick={() => setShow(v => !v)} aria-pressed={show} aria-controls="password" className="absolute inset-y-0 right-0 px-3 text-xs font-medium text-gray-700 hover:text-black">{show ? "Hide" : "Show"}</button></div>
+        <button type="button" onClick={() => setShow(v => !v)} aria-pressed={show} aria-controls="password" className="absolute inset-y-0 right-0 px-3 text-xs font-medium text-gray-700 hover:text-white">{show ? "Hide" : "Show"}</button></div>
       {fe.password && <p id="pw-err" className="field-error">{fe.password}</p>}</div>
-    <SubmitButton pending="Signing in…" className={`w-full !py-2.5 ${master ? "!bg-rail !border-rail hover:!bg-red-900" : ""}`}>Sign in</SubmitButton>
+    <SubmitButton pending="Signing in…" className={`w-full !py-2.5 ${master ? "!bg-rail !border-rail hover:!bg-red-800" : ""}`}>Sign in</SubmitButton>
     <p className="text-xs text-gray-500">{master ? "Not a Master Administrator? Use the administrator sign-in instead." : "Master Administrator? Use the Master sign-in."}{" "}
       <a href={master ? "/admin/login" : "/master/login"}>{master ? "Administrator sign-in" : "Master sign-in"}</a></p></form>;
 }
