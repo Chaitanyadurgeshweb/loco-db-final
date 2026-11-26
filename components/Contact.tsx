@@ -10,7 +10,7 @@ export default function Contact({
       For {topic}, contact us at{" "}
       <a
         href={`mailto:${CONTACT_EMAIL}`}
-        className="text-blue-600 underline"
+        className="text-sky-400 underline"
       >
         {CONTACT_EMAIL}
       </a>.
