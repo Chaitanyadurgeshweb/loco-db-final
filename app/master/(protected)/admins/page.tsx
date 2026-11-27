@@ -1,7 +1,6 @@
-
 import { requireMaster } from "@/lib/master-auth";
 import { createServiceSupabase } from "@/lib/supabase/service";
-import { createAdminAccount } from "@/app/master/actions";
+import { createAdminAccount, changeAdminPassword, deleteAdminAccount } from "@/app/master/actions";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +19,19 @@ const errors: Record<string, string> = {
   database: "Unable to check the database.",
   auth_creation: "Account creation failed. The email may already exist.",
   role_assignment: "Unable to assign the Administrator role.",
+  invalid_id: "That administrator could not be identified.",
+  self: "You cannot change or delete your own account here.",
+  protected: "Master Admin accounts cannot be changed here.",
+  not_found: "That administrator no longer exists.",
+  password_failed: "The password could not be changed. Please try again.",
+  delete_failed: "The administrator could not be deleted. Nothing was changed.",
+};
+
+const successes: Record<string, string> = {
+  created: "Administrator account created successfully.",
+  password_changed: "Password changed. Share the new password with the administrator securely.",
+  deleted: "Administrator deleted.",
+  access_removed: "Administrator access removed. The account is kept because it has request history, but it can no longer sign in.",
 };
 
 export default async function AdminManagementPage({
@@ -48,14 +60,14 @@ export default async function AdminManagementPage({
         </h1>
 
         <p className="text-sm text-gray-600 mt-2">
-          Create and view Administrator accounts for Loco Portal.
+          Create administrators, change their passwords, or delete them.
         </p>
       </div>
 
       {/* Success message */}
-      {searchParams.success === "created" && (
-        <div className="notice notice-ok">
-          Administrator account created successfully.
+      {searchParams.success && successes[searchParams.success] && (
+        <div className="notice notice-ok" role="status">
+          {successes[searchParams.success]}
         </div>
       )}
 
@@ -162,6 +174,7 @@ export default async function AdminManagementPage({
                   <th>Username</th>
                   <th>User ID</th>
                   <th>Created At</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
 
@@ -183,12 +196,57 @@ export default async function AdminManagementPage({
                         timeZone: "Asia/Kolkata",
                       })}
                     </td>
+
+                    <td>
+                      <div className="flex flex-col gap-2 min-w-[230px]">
+                        <details>
+                          <summary className="btn cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                            Change password
+                          </summary>
+                          <form action={changeAdminPassword} className="mt-2 space-y-2">
+                            <input type="hidden" name="user_id" value={admin.user_id} />
+                            <label htmlFor={`pw-${admin.user_id}`} className="label">
+                              New password
+                            </label>
+                            <input
+                              id={`pw-${admin.user_id}`}
+                              name="password"
+                              type="password"
+                              className="input"
+                              placeholder="Minimum 12 characters"
+                              minLength={12}
+                              maxLength={128}
+                              autoComplete="new-password"
+                              required
+                            />
+                            <button type="submit" className="btn btn-primary">
+                              Save password
+                            </button>
+                          </form>
+                        </details>
+
+                        <details>
+                          <summary className="btn btn-danger cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                            Delete
+                          </summary>
+                          <form action={deleteAdminAccount} className="mt-2 space-y-2">
+                            <input type="hidden" name="user_id" value={admin.user_id} />
+                            <p className="text-sm">
+                              Delete <strong>{admin.username || "this administrator"}</strong>? This cannot be undone.
+                            </p>
+                            <button type="submit" className="btn btn-danger">
+                              Yes, delete
+                            </button>
+                          </form>
+                        </details>
+                      </div>
+                    </td>
                   </tr>
                 ))}
 
                 {(!admins || admins.length === 0) && (
                   <tr>
-                    <td colSpan={3} className="text-center py-6">
+                    <td colSpan={4} className="text-center py-6">
                       No administrators registered yet.
                     </td>
                   </tr>
