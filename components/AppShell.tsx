@@ -8,7 +8,7 @@ type Item = { label: string; href: string; exact?: boolean; also?: string[] };
 const PUBLIC: Item[] = [
   { label: "Home", href: "/", exact: true }, { label: "Locomotives", href: "/search", also: ["/locos"] }, { label: "Classes", href: "/locomotives" },
   { label: "Zones", href: "/zones" }, { label: "Sheds", href: "/sheds" }, { label: "Manufacturers", href: "/manufacturers" },
-  { label: "Data status", href: "/sources" }, { label: "About", href: "/about" }, { label: "login", href: "/admin" }];
+  { label: "Data status", href: "/sources" }, { label: "About", href: "/about" }, { label: "Login", href: "/admin" }];
 const ADMIN: Item[] = [
   { label: "Dashboard", href: "/admin", exact: true }, { label: "Locomotives", href: "/admin/locos" }, { label: "Add locomotive", href: "/admin/locos/new" },
   { label: "Bulk upload", href: "/admin/bulk" }, { label: "View public site", href: "/", exact: true }, { label: "Master Administration login", href: "/master" }];
@@ -51,9 +51,9 @@ export default function AppShell({ children, footer }: { children: React.ReactNo
       <header className="sticky top-0 z-30 bg-navy border-b border-line pt-[env(safe-area-inset-top)]">
         <div className="flex items-center gap-3 px-4 md:px-6 h-14 md:h-16">
           <Link href="/" className="md:hidden font-extrabold text-white no-underline hover:no-underline">{SITE_NAME}</Link>
-          {!isMaster && <form action="/search" role="search" className="flex flex-1 max-w-xl gap-2 ml-auto md:ml-0">
+          {!isMaster && <form action="/search" role="search" className="flex gap-2 ml-auto">
             <label htmlFor="site-q" className="sr-only">Search locomotives, classes or sheds</label>
-            <input id="site-q" name="q" placeholder="Loco no., class or shed" className="input !min-h-[40px] !py-1.5" />
+            <input id="site-q" name="q" placeholder="Loco no., class or shed" className="input !min-h-[40px] !py-1.5 !w-[140px] sm:!w-[205px]" />
             <button className="btn btn-primary !min-h-[40px]">Search</button></form>}
           {isMaster && <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-gray-600">Master control</span>}
         </div>
