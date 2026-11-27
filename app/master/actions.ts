@@ -158,6 +158,106 @@ export async function createAdminAccount(fd: FormData) {
 }
 
 // --------------------------------------------------
+// CHANGE PASSWORD / DELETE ADMINISTRATOR
+// --------------------------------------------------
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Checks the target is a real Administrator: never yourself, never a Master Admin. */
+async function loadTargetAdmin(fd: FormData, selfId: string) {
+  const id = String(fd.get("user_id") ?? "").trim().toLowerCase();
+
+  if (!UUID.test(id)) redirect("/master/admins?error=invalid_id");
+  if (id === selfId) redirect("/master/admins?error=self");
+
+  const service = createServiceSupabase();
+
+  const { data: master, error: masterError } = await service
+    .from("master_admins")
+    .select("user_id")
+    .eq("user_id", id)
+    .maybeSingle();
+
+  if (masterError) {
+    console.error("Master check failed:", masterError);
+    redirect("/master/admins?error=database");
+  }
+  if (master) redirect("/master/admins?error=protected");
+
+  const { data: admin, error: adminError } = await service
+    .from("admin_users")
+    .select("user_id")
+    .eq("user_id", id)
+    .maybeSingle();
+
+  if (adminError) {
+    console.error("Administrator lookup failed:", adminError);
+    redirect("/master/admins?error=database");
+  }
+  if (!admin) redirect("/master/admins?error=not_found");
+
+  return { service, id };
+}
+
+export async function changeAdminPassword(fd: FormData) {
+  const { user } = await requireMaster();
+
+  const password = String(fd.get("password") ?? "");
+  if (password.length < 12 || password.length > 128) {
+    redirect("/master/admins?error=invalid_password");
+  }
+
+  const { service, id } = await loadTargetAdmin(fd, user.id);
+
+  const { error } = await service.auth.admin.updateUserById(id, { password });
+
+  if (error) {
+    console.error("Password change failed:", error);
+    redirect("/master/admins?error=password_failed");
+  }
+
+  revalidatePath("/master/admins");
+  redirect("/master/admins?success=password_changed");
+}
+
+export async function deleteAdminAccount(fd: FormData) {
+  const { user } = await requireMaster();
+  const { service, id } = await loadTargetAdmin(fd, user.id);
+
+  // 1. Remove the Administrator role first, so access ends immediately.
+  const { error: roleError } = await service
+    .from("admin_users")
+    .delete()
+    .eq("user_id", id);
+
+  if (roleError) {
+    console.error("Administrator role removal failed:", roleError);
+    redirect("/master/admins?error=delete_failed");
+  }
+
+  // 2. Delete the sign-in account.
+  const { error: deleteError } = await service.auth.admin.deleteUser(id);
+
+  if (deleteError) {
+    // The account has submitted or reviewed requests, which must stay in the audit history.
+    // Keep the account but block it from signing in.
+    console.error("Account deletion blocked, banning instead:", deleteError);
+
+    const { error: banError } = await service.auth.admin.updateUserById(id, {
+      ban_duration: "876000h",
+    });
+
+    if (banError) console.error("Ban failed:", banError);
+
+    revalidatePath("/master/admins");
+    redirect("/master/admins?success=access_removed");
+  }
+
+  revalidatePath("/master/admins");
+  redirect("/master/admins?success=deleted");
+}
+
+// --------------------------------------------------
 // APPROVE / DECLINE CHANGE REQUESTS (restored)
 // --------------------------------------------------
 
