@@ -8,12 +8,12 @@ type Item = { label: string; href: string; exact?: boolean; also?: string[] };
 const PUBLIC: Item[] = [
   { label: "Home", href: "/", exact: true }, { label: "Locomotives", href: "/search", also: ["/locos"] }, { label: "Classes", href: "/locomotives" },
   { label: "Zones", href: "/zones" }, { label: "Sheds", href: "/sheds" }, { label: "Manufacturers", href: "/manufacturers" },
-  { label: "Data status", href: "/sources" }, { label: "About", href: "/about" }];
+  { label: "Data status", href: "/sources" }, { label: "About", href: "/about" }, { label: "login", href: "/admin" }];
 const ADMIN: Item[] = [
   { label: "Dashboard", href: "/admin", exact: true }, { label: "Locomotives", href: "/admin/locos" }, { label: "Add locomotive", href: "/admin/locos/new" },
-  { label: "Bulk upload", href: "/admin/bulk" }, { label: "View public site", href: "/", exact: true }];
+  { label: "Bulk upload", href: "/admin/bulk" }, { label: "View public site", href: "/", exact: true }, { label: "Master Administration login", href: "/master" }];
 const MASTER: Item[] = [
-  { label: "Approval Dashboard", href: "/master" }, { label: "Manage Administrators", href: "/master/admins" }, { label: "View Public Site", href: "/", exact: true }];
+  { label: "Approval Dashboard", href: "/master" }, { label: "Manage Administrators", href: "/master/admins" }, { label: "View Public Site", href: "/", exact: true }, { label: "Administration", href: "/admin" }];
 
 const AREAS = {
   public: { label: "Reference", items: PUBLIC, primary: 4 },
@@ -36,7 +36,6 @@ export default function AppShell({ children, footer }: { children: React.ReactNo
   const [more, setMore] = useState(false);
   const area = AREAS[areaOf(path)], items = area.items, active = activeOf(items, path);
   const key = areaOf(path), isMaster = key === "master";
-  const swap = key === "admin" ? { label: "Master Administration", href: "/master", cls: "btn" } : { label: "Administration", href: "/admin", cls: "btn btn-primary" };
   const side = "block rounded-industrial px-3 py-2.5 text-sm font-medium no-underline hover:no-underline ";
   const primary = items.slice(0, area.primary), rest = items.slice(area.primary);
   const dock = "flex-1 min-h-[56px] flex items-center justify-center px-1 text-center text-xs font-semibold no-underline hover:no-underline border-t-2 ";
@@ -47,7 +46,6 @@ export default function AppShell({ children, footer }: { children: React.ReactNo
       <p className="px-3 pt-2 pb-1 text-[10px] font-bold uppercase tracking-[0.08em] text-gray-600">{area.label}</p>
       <nav aria-label="Main"><ul className="space-y-1">{items.map(i => <li key={i.label}><Link href={i.href} aria-current={i === active ? "page" : undefined}
         className={side + (i === active ? "bg-navy-800 text-white" : "text-gray-600 hover:bg-elevated hover:text-gray-900")}>{i.label}</Link></li>)}</ul></nav>
-      <Link href={swap.href} className={swap.cls + " mt-auto w-full"}>{swap.label}</Link>
     </aside>
     <div className="flex-1 min-w-0 flex flex-col min-h-screen pb-[calc(3.5rem+env(safe-area-inset-bottom))] md:pb-0">
       <header className="sticky top-0 z-30 bg-navy border-b border-line pt-[env(safe-area-inset-top)]">
@@ -65,8 +63,7 @@ export default function AppShell({ children, footer }: { children: React.ReactNo
     </div>
     <nav aria-label="Primary" className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)]">
       {more && <ul className="absolute bottom-full right-2 mb-2 w-52 rounded-card border border-line bg-elevated p-1 shadow-2xl">
-        {rest.map(i => <li key={i.label}><Link href={i.href} onClick={() => setMore(false)} className="block rounded-industrial px-3 py-3 text-sm text-gray-900 no-underline hover:bg-surface hover:no-underline">{i.label}</Link></li>)}
-        <li><Link href={swap.href} onClick={() => setMore(false)} className="block rounded-industrial px-3 py-3 text-sm font-semibold text-sky-300 no-underline hover:bg-surface hover:no-underline">{swap.label}</Link></li></ul>}
+        {rest.map(i => <li key={i.label}><Link href={i.href} onClick={() => setMore(false)} className="block rounded-industrial px-3 py-3 text-sm text-gray-900 no-underline hover:bg-surface hover:no-underline">{i.label}</Link></li>)}</ul>}
       <div className="flex">{primary.map(i => <Link key={i.label} href={i.href} onClick={() => setMore(false)} aria-current={i === active ? "page" : undefined}
         className={dock + (i === active ? "border-accent text-white" : "border-transparent text-gray-600")}>{i.label}</Link>)}
         <button type="button" aria-expanded={more} onClick={() => setMore(v => !v)} className={dock + "border-transparent text-gray-600"}>More</button></div>
